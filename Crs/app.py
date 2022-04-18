@@ -1,38 +1,57 @@
 from flask import Flask, request, render_template
-import numpy as np
-from tensorflow import keras
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello World 2!!!!!!!!!!!!'
+def index():
+    return render_template('test1.html', name='Сделаем расчет! Введите r')
 
 
-def processing_params(params):
-    message = ""
-#     TODO: Добавить логику модели
-# model.predict([[param1, param2, ...]])
-#     model = keras.models.load_model(path) # путь до модели
-#     message = f"Параметры {params}\n"
-#     model.summary()
+def processing():
+    model = "Tmp model"
+    # TODO: реализовать логику модели
+    return model
+
+
+def processing_params(param1, param2, param3, param4, param5, param6, param7):
+    #     TODO: Добавить логику модели
+    #     model = keras.load_model()
+    #     pred = model.predict([param1, param2])
+    message = f"Соотношение матрица-наполнитель = {param1 + param2 + param3 + param4 + param5 + param6 + param7}"
+ #   message = parameter1
     return message
 
 
-@app.route('/login/', methods=['post', 'get'])
+@app.route('/hello')
+def hello_world():
+    model = processing()
+    return model
+
+
+@app.route('/r/', methods=['post', 'get'])
 def login():
     message = ''
     if request.method == 'POST':
-        # TODO: добавить обработку нескольких параметров
-        params = request.form.get('username')
+        param1 = request.form.get('param1')  # запрос к данным формы
+        param2 = request.form.get('param2')
+        param3 = request.form.get('param3')
+        param4 = request.form.get('param4')
+        param5 = request.form.get('param5')
+        param6 = request.form.get('param6')
+        param7 = request.form.get('param7')
 
-        params = list(map(float, params.split()))
+        param1 = float(param1)
+        param2 = float(param2)
+        param3 = float(param3)
+        param4 = float(param4)
+        param5 = float(param5)
+        param6 = float(param6)
+        param7 = float(param7)
 
-        message = processing_params(params)
+        message = processing_params(param1, param2, param3, param4, param5, param6, param7)
 
     return render_template('login.html', message=message)
-
 
 if __name__ == '__main__':
     app.run()
