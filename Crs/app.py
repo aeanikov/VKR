@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('test1.html', name='Сделаем расчет! Введите r')
+    return render_template('test1.html', name='Для анализа введите r')
 
 
 def processing():
@@ -14,11 +14,11 @@ def processing():
     return model
 
 
-def processing_params(param1, param2, param3, param4, param5, param6, param7):
+def processing_params(param1, param2, param3, param4, param5, param6, param7, param8, param9):
     #     TODO: Добавить логику модели
     #     model = keras.load_model()
     #     pred = model.predict([param1, param2])
-    message = f"Соотношение матрица-наполнитель = {param1 + param2 + param3 + param4 + param5 + param6 + param7}"
+    message = f"Соотношение матрица-наполнитель = {param1 + param2 + param3 + param4 + param5 + param6 + param7 + param8 + param9}"
  #   message = parameter1
     return message
 
@@ -40,6 +40,8 @@ def login():
         param5 = request.form.get('param5')
         param6 = request.form.get('param6')
         param7 = request.form.get('param7')
+        param8 = request.form.get('param8')
+        param9 = request.form.get('param9')
 
         param1 = float(param1)
         param2 = float(param2)
@@ -48,8 +50,10 @@ def login():
         param5 = float(param5)
         param6 = float(param6)
         param7 = float(param7)
+        param8 = float(param8)
+        param9 = float(param9)
 
-        message = processing_params(param1, param2, param3, param4, param5, param6, param7)
+        message = processing_params(param1, param2, param3, param4, param5, param6, param7, param8, param9)
 
     return render_template('login.html', message=message)
 
