@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import numpy as np
+from tensorflow import keras
 
 app = Flask(__name__)
 
@@ -10,10 +11,12 @@ def hello_world():
 
 
 def processing_params(params):
+    message = ""
 #     TODO: Добавить логику модели
-#     model = keras.load_model()
-#     pred = model.predict([param1, param2])
-    message = f"Параметры {params}"
+# model.predict([[param1, param2, ...]])
+#     model = keras.models.load_model(path) # путь до модели
+#     message = f"Параметры {params}\n"
+#     model.summary()
     return message
 
 
@@ -21,6 +24,7 @@ def processing_params(params):
 def login():
     message = ''
     if request.method == 'POST':
+        # TODO: добавить обработку нескольких параметров
         params = request.form.get('username')
 
         params = list(map(float, params.split()))
