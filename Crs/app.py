@@ -1,32 +1,32 @@
 from flask import Flask, request, render_template
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from keras.models import Sequential
+from keras.layers import Dense
+
+model = keras.models.load_model("models/my_model")
+x = np.zeros(9)
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def index():
     return render_template('test1.html', name='Для анализа введите r')
 
-
-def processing():
-    model = "Tmp model"
-    # TODO: реализовать логику модели
-    return model
-
-
-def processing_params(param1, param2, param3, param4, param5, param6, param7, param8, param9):
-    #     TODO: Добавить логику модели
-    #     model = keras.load_model()
-    #     pred = model.predict([param1, param2])
-    message = f"Соотношение матрица-наполнитель = {param1 + param2 + param3 + param4 + param5 + param6 + param7 + param8 + param9}"
- #   message = parameter1
+def processing_params(param1, param2, param3, param4, param5, param6, param7, param8, param9 ):
+    x[0]=param1
+    x[1]=param2
+    x[2]=param3
+    x[3]=param4
+    x[4]=param5
+    x[5]=param6
+    x[6]=param7
+    x[7]=param8
+    x[8]=param9
+    pred = model.predict(x).flatten()
+    message = f"Соотношение матрица-наполнитель = {pred}"
     return message
-
-
-@app.route('/hello')
-def hello_world():
-    model = processing()
-    return model
 
 
 @app.route('/r/', methods=['post', 'get'])
